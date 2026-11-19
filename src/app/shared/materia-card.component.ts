@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Materia } from '../core/modelos';
 
 @Component({
@@ -7,14 +7,14 @@ import { Materia } from '../core/modelos';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <button (click)="elegir.emit(materia)" [ngClass]="temaClase" class="card-materia">
+    <button (click)="elegir.emit(materia())" [ngClass]="temaClase" class="card-materia">
       <div class="cenefa-wayuu"></div>
 
       <!-- Ilustración protagonizando toda la mitad derecha -->
       <div class="ilustracion-wrapper">
         <img
-          [src]="'/img/materias/' + getIlustracion(materia.nombre)"
-          [alt]="materia.nombre"
+          [src]="'/img/materias/' + getIlustracion(materia().nombre)"
+          [alt]="materia().nombre"
           class="ilustracion-img"
           (error)="onImgError($event)"
         />
@@ -22,13 +22,13 @@ import { Materia } from '../core/modelos';
 
       <div class="card-top">
         <div class="icono-caja">
-          <span>{{ getIcono(materia.nombre) }}</span>
+          <span>{{ getIcono(materia().nombre) }}</span>
         </div>
       </div>
 
       <div class="card-info">
-        <h3>{{ materia.nombre }}</h3>
-        <p>{{ materia.descripcion }}</p>
+        <h3>{{ materia().nombre }}</h3>
+        <p>{{ materia().descripcion }}</p>
       </div>
 
       <div class="card-footer">
@@ -177,11 +177,11 @@ import { Materia } from '../core/modelos';
   `]
 })
 export class MateriaCardComponent {
-  @Input({ required: true }) materia!: Materia;
-  @Output() elegir = new EventEmitter<Materia>();
+  readonly materia = input.required<Materia>();
+  readonly elegir = output<Materia>();
 
   get temaClase(): string {
-    const n = this.materia.nombre.toLowerCase();
+    const n = this.materia().nombre.toLowerCase();
     if (n.includes('matemát')) return 'tema-matematicas';
     if (n.includes('naturales') || n.includes('ciencias')) return 'tema-ciencias';
     if (n.includes('español') || n.includes('literat')) return 'tema-espanol';

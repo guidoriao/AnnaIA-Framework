@@ -198,3 +198,37 @@ app-tarjeta-consulta:last-child .fila-consulta { border-bottom: none; }
   .panel { grid-template-columns: 1fr; }
   app-mensaje { max-width: 100%; }
 }
+
+/* Catálogo de actividades del módulo COM30 */
+.catalogo-barra { background: white; border-bottom: 1px solid var(--borde); display: flex; align-items: center; justify-content: space-between; padding: 14px max(5vw, calc((100% - 980px) / 2)); gap: 16px; flex-wrap: wrap; }
+.catalogo-marca, .catalogo-barra nav { display: flex; align-items: center; gap: 12px; }
+.catalogo-marca { font-size: 1.2rem; font-weight: 750; }
+.catalogo-marca img { width: 38px; height: 38px; border-radius: 50%; }
+.catalogo-barra nav a { padding: 7px 12px; border-radius: 8px; }
+.catalogo-barra nav a.elegido { background: var(--acento-claro); color: #813c0c; font-weight: 650; }
+.catalogo-pagina { max-width: 980px; margin: auto; padding: clamp(24px, 5vw, 54px) 5%; box-sizing: content-box; }
+.catalogo-pagina h1 { font-size: clamp(1.8rem, 4.2vw, 2.8rem); line-height: 1.12; letter-spacing: -.035em; }
+.introduccion, .metadatos, .conteo { color: #60564d; }
+.introduccion { margin: 8px 0 24px; }
+.filtro { display: grid; gap: 8px; font-weight: 650; max-width: 510px; }
+.conteo { margin: 22px 0 8px; }
+.rejilla-fichas { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,210px),1fr)); gap: 15px; }
+.ficha-resumen { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; padding: 22px; }
+.ficha-resumen:hover { border-color: #96531b; }
+.ficha-resumen h2 { font-size: 1.22rem; }
+.ficha-resumen > span:last-child { color: #60564d; margin-top: auto; }
+.materia { display: inline-block; font-size: .85rem; color: #205f49; background: #edf5ee; border-radius: 5px; padding: 4px 9px; }
+.regresar { display: inline-block; margin-bottom: 20px; color: #794016; text-decoration: underline; }
+.ficha-detalle { padding: clamp(20px,4vw,42px); max-width: 800px; }
+.ficha-detalle h1 { margin: 14px 0 8px; }
+.ficha-detalle h2 { margin-top: 24px; font-size: 1.15rem; }
+.ficha-detalle p:last-child { margin-bottom: 0; max-width: 65ch; }
+.alta-ficha { display: grid; padding: clamp(16px,3vw,28px); max-width: 680px; }
+.alta-ficha label { display: block; font-weight: 650; margin-bottom: 5px; }
+.alta-ficha :is(input,select,textarea) { font: inherit; color: inherit; width: 100%; border: 1px solid #ad9c8e; border-radius: 7px; background: white; padding: 8px 10px; }
+.alta-ficha textarea { resize: vertical; }
+.alta-ficha .error { display: block; min-height: 22px; padding-top: 2px; }
+.alta-ficha [class*="ng-invalid"]:is(.ng-touched,.ng-dirty) { border-color: var(--alerta); }
+.alta-ficha .par-campos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.alta-ficha button { justify-self: start; background: #984c0d; }
+@media(max-width: 540px){ .alta-ficha .par-campos { grid-template-columns: 1fr; gap: 0; } .catalogo-barra nav { gap: 1px; } }

@@ -29,6 +29,7 @@ export class LayoutComponent {
 
   protected readonly enlaces: Enlace[] = [
     { ruta: '/inicio', texto: 'Inicio', icono: 'inicio' },
+    { ruta: '/listado', texto: 'Fichas de estudio', icono: 'libro' },
     { ruta: '/biblioteca', texto: 'Biblioteca', icono: 'biblioteca' },
     { ruta: '/anna', texto: 'Anna IA', icono: 'anna' },
     { ruta: '/consultas', texto: 'Mis consultas', icono: 'consultas' },

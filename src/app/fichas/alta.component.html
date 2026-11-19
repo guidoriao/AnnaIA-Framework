@@ -1,0 +1,26 @@
+<h1>Nueva ficha de estudio</h1>
+<p class="introduccion">Registra una actividad que el grupo pueda realizar en el tiempo indicado.</p>
+<form class="tarjeta alta-ficha" [formGroup]="formulario" (ngSubmit)="guardar()" novalidate>
+  <label for="titulo">Título</label>
+  <input id="titulo" type="text" formControlName="titulo" aria-describedby="error-titulo">
+  <small id="error-titulo" class="error">{{ error('titulo') }}</small>
+  <div class="par-campos">
+    <div>
+      <label for="materia">Materia</label>
+      <select id="materia" formControlName="materia" aria-describedby="error-materia">
+        <option value="">Elige una materia</option>
+        @for (m of materias; track m.nombre) { <option [value]="m.nombre">{{ m.nombre }}</option> }
+      </select>
+      <small id="error-materia" class="error">{{ error('materia') }}</small>
+    </div>
+    <div>
+      <label for="duracion">Duración en minutos</label>
+      <input id="duracion" type="number" min="5" max="120" step="1" formControlName="duracion" aria-describedby="error-duracion">
+      <small id="error-duracion" class="error">{{ error('duracion') }}</small>
+    </div>
+  </div>
+  <label for="actividad">Actividad</label>
+  <textarea id="actividad" rows="3" formControlName="actividad" aria-describedby="error-actividad"></textarea>
+  <small id="error-actividad" class="error">{{ error('actividad') }}</small>
+  <button class="boton-principal" type="submit" [disabled]="formulario.invalid">Guardar ficha</button>
+</form>
