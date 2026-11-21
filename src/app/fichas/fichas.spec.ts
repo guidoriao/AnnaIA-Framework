@@ -27,6 +27,33 @@ it('valida al tocar, comprueba el mínimo y rechaza un título repetido', () => 
   expect(f.controls.titulo.valid).toBe(true);
 });
 
+it('muestra el error junto a su campo y lo retira al corregir el dato', () => {
+  TestBed.configureTestingModule({ providers: [provideRouter([])] });
+  const vista = TestBed.createComponent(AltaComponent);
+  vista.detectChanges();
+  const pantalla: HTMLElement = vista.nativeElement;
+  const duracion = pantalla.querySelector<HTMLInputElement>('#duracion')!;
+  const error = pantalla.querySelector('#error-duracion')!;
+  const guardar = pantalla.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+
+  expect(error.textContent).toBe('');
+  expect(duracion.hasAttribute('aria-invalid')).toBe(false);
+  expect(duracion.getAttribute('aria-describedby')?.split(' ')).toContain(error.id);
+
+  duracion.value = '4';
+  duracion.dispatchEvent(new Event('input'));
+  vista.detectChanges();
+  expect(error.textContent).toBe('Escribe un número entero entre 5 y 120.');
+  expect(duracion.getAttribute('aria-invalid')).toBe('true');
+  expect(guardar.disabled).toBe(true);
+
+  duracion.value = '15';
+  duracion.dispatchEvent(new Event('input'));
+  vista.detectChanges();
+  expect(error.textContent).toBe('');
+  expect(duracion.hasAttribute('aria-invalid')).toBe(false);
+});
+
 it('convierte los datos, agrega una ficha y reinicia el alta', async () => {
   TestBed.configureTestingModule({ providers: [provideRouter(routes, withComponentInputBinding())] });
   const alta = TestBed.createComponent(AltaComponent).componentInstance;
