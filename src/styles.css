@@ -223,12 +223,58 @@ app-tarjeta-consulta:last-child .fila-consulta { border-bottom: none; }
 .ficha-detalle h1 { margin: 14px 0 8px; }
 .ficha-detalle h2 { margin-top: 24px; font-size: 1.15rem; }
 .ficha-detalle p:last-child { margin-bottom: 0; max-width: 65ch; }
-.alta-ficha { display: grid; padding: clamp(16px,3vw,28px); max-width: 680px; }
-.alta-ficha label { display: block; font-weight: 650; margin-bottom: 5px; }
-.alta-ficha :is(input,select,textarea) { font: inherit; color: inherit; width: 100%; border: 1px solid #ad9c8e; border-radius: 7px; background: white; padding: 8px 10px; }
+.alta-ficha {
+  display: grid;
+  gap: 18px;
+  padding: clamp(14px, 3vw, 28px);
+  max-width: 680px;
+}
+.alta-ficha .alta-campo { display: grid; gap: 6px; align-content: start; min-width: 0; }
+.alta-ficha label { font-weight: 650; }
+.alta-ficha :is(input, select, textarea) {
+  font: inherit;
+  font-size: max(16px, 1rem);
+  color: inherit;
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  border: 1px solid #ad9c8e;
+  border-radius: 8px;
+  background: var(--superficie);
+  padding: 10px 12px;
+}
+.alta-ficha :is(input, select, textarea):focus-visible {
+  outline: 2px solid #984c0d;
+  outline-offset: 2px;
+}
 .alta-ficha textarea { resize: vertical; }
-.alta-ficha .error { display: block; min-height: 22px; padding-top: 2px; }
-.alta-ficha [class*="ng-invalid"]:is(.ng-touched,.ng-dirty) { border-color: var(--alerta); }
-.alta-ficha .par-campos { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.alta-ficha button { justify-self: start; background: #984c0d; }
-@media(max-width: 540px){ .alta-ficha .par-campos { grid-template-columns: 1fr; gap: 0; } .catalogo-barra nav { gap: 1px; } }
+.alta-ficha .alta-ayuda { margin: 0; color: #60564d; font-size: .875rem; line-height: 1.4; }
+.alta-ficha .error {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.alta-ficha .error:not(:empty) {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip-path: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: var(--alerta-claro);
+  font-size: .875rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.alta-ficha [aria-invalid="true"] { border-color: var(--alerta); }
+.alta-ficha .par-campos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.alta-ficha button { justify-self: start; min-height: 48px; background: #984c0d; }
+
+@media (max-width: 540px) {
+  .catalogo-barra nav { gap: 1px; }
+  .alta-ficha .par-campos { grid-template-columns: minmax(0, 1fr); }
+  .alta-ficha button { width: 100%; }
+}

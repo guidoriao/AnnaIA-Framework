@@ -1,26 +1,48 @@
 <h1>Nueva ficha de estudio</h1>
 <p class="introduccion">Registra una actividad que el grupo pueda realizar en el tiempo indicado.</p>
 <form class="tarjeta alta-ficha" [formGroup]="formulario" (ngSubmit)="guardar()" novalidate>
-  <label for="titulo">Título</label>
-  <input id="titulo" type="text" formControlName="titulo" aria-describedby="error-titulo">
-  <small id="error-titulo" class="error">{{ error('titulo') }}</small>
+  @let errorTitulo = error('titulo');
+  @let errorMateria = error('materia');
+  @let errorDuracion = error('duracion');
+  @let errorActividad = error('actividad');
+
+  <p class="alta-ayuda">Todos los campos son obligatorios.</p>
+
+  <div class="alta-campo">
+    <label for="titulo">Título</label>
+    <input id="titulo" type="text" formControlName="titulo" required
+      aria-describedby="ayuda-titulo error-titulo" [attr.aria-invalid]="errorTitulo ? 'true' : null">
+    <small id="ayuda-titulo" class="alta-ayuda">De 4 a 80 caracteres.</small>
+    <small id="error-titulo" class="error" aria-live="polite">{{ errorTitulo }}</small>
+  </div>
+
   <div class="par-campos">
-    <div>
+    <div class="alta-campo">
       <label for="materia">Materia</label>
-      <select id="materia" formControlName="materia" aria-describedby="error-materia">
+      <select id="materia" formControlName="materia" required
+        aria-describedby="error-materia" [attr.aria-invalid]="errorMateria ? 'true' : null">
         <option value="">Elige una materia</option>
         @for (m of materias; track m.nombre) { <option [value]="m.nombre">{{ m.nombre }}</option> }
       </select>
-      <small id="error-materia" class="error">{{ error('materia') }}</small>
+      <small id="error-materia" class="error" aria-live="polite">{{ errorMateria }}</small>
     </div>
-    <div>
+    <div class="alta-campo">
       <label for="duracion">Duración en minutos</label>
-      <input id="duracion" type="number" min="5" max="120" step="1" formControlName="duracion" aria-describedby="error-duracion">
-      <small id="error-duracion" class="error">{{ error('duracion') }}</small>
+      <input id="duracion" type="number" inputmode="numeric" min="5" max="120" step="1"
+        formControlName="duracion" required aria-describedby="ayuda-duracion error-duracion"
+        [attr.aria-invalid]="errorDuracion ? 'true' : null">
+      <small id="ayuda-duracion" class="alta-ayuda">De 5 a 120 minutos.</small>
+      <small id="error-duracion" class="error" aria-live="polite">{{ errorDuracion }}</small>
     </div>
   </div>
-  <label for="actividad">Actividad</label>
-  <textarea id="actividad" rows="3" formControlName="actividad" aria-describedby="error-actividad"></textarea>
-  <small id="error-actividad" class="error">{{ error('actividad') }}</small>
+
+  <div class="alta-campo">
+    <label for="actividad">Actividad</label>
+    <textarea id="actividad" rows="4" formControlName="actividad" required
+      aria-describedby="ayuda-actividad error-actividad" [attr.aria-invalid]="errorActividad ? 'true' : null"></textarea>
+    <small id="ayuda-actividad" class="alta-ayuda">De 15 a 800 caracteres.</small>
+    <small id="error-actividad" class="error" aria-live="polite">{{ errorActividad }}</small>
+  </div>
+
   <button class="boton-principal" type="submit" [disabled]="formulario.invalid">Guardar ficha</button>
 </form>
